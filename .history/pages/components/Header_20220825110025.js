@@ -4,7 +4,7 @@ import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import {HomeIcon} from "@heroicons/react/solid"
 export default function Header() {
   return (
-    <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
+    <div className="flex items-center justify-between max-w-6xl">
       {/* Left */}
       <div className="cursor-pointer h-24 w-24 relative hidden lg:inline-grid">
         <Image
