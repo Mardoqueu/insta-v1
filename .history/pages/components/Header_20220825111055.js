@@ -4,7 +4,6 @@ import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import {HomeIcon} from "@heroicons/react/solid"
 export default function Header() {
   return (
-    <div className="shadow-sm border-b sticky top-0 bg-white z-30">
       <div className="flex items-center justify-between max-w-6xl mx-4 xl:mx-auto">
         {/* Left */}
         <div className="cursor-pointer h-24 w-24 relative hidden lg:inline-grid">
@@ -38,6 +37,5 @@ export default function Header() {
         <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF1Icbg9ibKSQ/profile-displayphoto-shrink_800_800/0/1656524327808?e=1666828800&v=beta&t=qOGUdHrse_LvKkpyy9nUz7tCnRiXEGOzRBQ0KfwyR1o" alt="user-img" className="h-10 rounded-full cursor-pointer" />
       </div>
       </div>
-    </div>
   );
 }
