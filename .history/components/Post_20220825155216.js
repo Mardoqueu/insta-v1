@@ -12,7 +12,7 @@ export default function Post({img, userImg, caption, username, id}) {
       </div>
        {/* Post Image*/}
 
-       <img className="object-cover w-full" src={img} alt=''/>
+       <img className="object-cover w-full" src={img} alt="" />
     </div>
   )
 }

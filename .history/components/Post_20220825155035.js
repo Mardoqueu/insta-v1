@@ -10,9 +10,6 @@ export default function Post({img, userImg, caption, username, id}) {
         <p className="font-bold flex-1">{username}</p>
         <DotsHorizontalIcon className='h-5'/>
       </div>
-       {/* Post Image*/}
-
-       <img className="object-cover w-full" src={img} alt=''/>
     </div>
   )
 }
