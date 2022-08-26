@@ -10,8 +10,7 @@ export default NextAuth({
     }),
     // ...add more providers here
   ],
-
   pages:{
-      signin: "/auth/signin"
-  }
+    signin: "/auth/signin"
+}
 })
