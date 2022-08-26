@@ -38,18 +38,15 @@ export default function Header() {
       <div className="flex space-x-4 items-center">
         <HomeIcon className="hidden md:inline-flex h-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
         {session ? (
-            <>
-              <PlusCircleIcon className="h-6 cursor-pointer hover:scale-125 transition-tranform duration-200 ease-out" />
-              <img
-                src={session.user.image}
-                onClick={signOut}
-                alt="user-image"
-                className="h-10 rounded-full cursor-pointer"
-              />
-            </>
-          ) : (
-            <button onClick={signIn}>Sign in</button>
-          )}
+          <>
+          <PlusCircleIcon className="h-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
+          <img src="https://media-exp1.licdn.com/dms/image/C4E03AQF1Icbg9ibKSQ/profile-displayphoto-shrink_800_800/0/1656524327808?e=1666828800&v=beta&t=qOGUdHrse_LvKkpyy9nUz7tCnRiXEGOzRBQ0KfwyR1o" 
+          alt="user-img" 
+          className="h-10 rounded-full cursor-pointer" />
+          </>
+        ) :(
+          <button>Sign in</button>
+        )}
             </div>
       </div>
     </div>

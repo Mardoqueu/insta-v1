@@ -4,7 +4,7 @@ import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
 import {HomeIcon} from "@heroicons/react/solid";
 import { useSession, signIn, signOut } from "next-auth/react";
 export default function Header() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   console.log(session);
   return (
     <div className="shadow-sm border-b sticky top-0 bg-white z-30">
@@ -41,8 +41,8 @@ export default function Header() {
             <>
               <PlusCircleIcon className="h-6 cursor-pointer hover:scale-125 transition-tranform duration-200 ease-out" />
               <img
-                src={session.user.image}
                 onClick={signOut}
+                src={session.user.image}
                 alt="user-image"
                 className="h-10 rounded-full cursor-pointer"
               />

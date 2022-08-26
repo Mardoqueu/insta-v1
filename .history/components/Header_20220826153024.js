@@ -1,10 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import { SearchIcon, PlusCircleIcon } from "@heroicons/react/outline";
-import {HomeIcon} from "@heroicons/react/solid";
+import { HomeIcon } from "@heroicons/react/solid";
 import { useSession, signIn, signOut } from "next-auth/react";
 export default function Header() {
-  const {data: session} = useSession();
+  const { data: session } = useSession();
   console.log(session);
   return (
     <div className="shadow-sm border-b sticky top-0 bg-white z-30">
@@ -28,21 +28,25 @@ export default function Header() {
 
         <div className="relative mt-1">
           <div className="absolute top-2 left-2">
-          <SearchIcon  className="h-5 text-gray-500" />
+            <SearchIcon className="h-5 text-gray-500" />
           </div>
-          <input type="text" placeholder="Search" className="bg-gray-50 pl-10 border-gray-500 text-sm focus:ring-black focus:border-black rounded-md"/>
+          <input
+            type="text"
+            placeholder="Search"
+            className="bg-gray-50 pl-10 border-gray-500 text-sm focus:ring-black focus:border-black rounded-md"
+          />
         </div>
 
-      {/* Right */}
+        {/* Right */}
 
-      <div className="flex space-x-4 items-center">
-        <HomeIcon className="hidden md:inline-flex h-6 cursor-pointer hover:scale-125 transition-transform duration-200 ease-out"/>
-        {session ? (
+        <div className="flex space-x-4 items-center">
+          <HomeIcon className="hidden md:inline-flex  h-6 cursor-pointer hover:scale-125 transition-tranform duration-200 ease-out" />
+          {session ? (
             <>
               <PlusCircleIcon className="h-6 cursor-pointer hover:scale-125 transition-tranform duration-200 ease-out" />
               <img
-                src={session.user.image}
                 onClick={signOut}
+                src={session.user.image}
                 alt="user-image"
                 className="h-10 rounded-full cursor-pointer"
               />
@@ -50,7 +54,7 @@ export default function Header() {
           ) : (
             <button onClick={signIn}>Sign in</button>
           )}
-            </div>
+        </div>
       </div>
     </div>
   );
