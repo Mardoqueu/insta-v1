@@ -15,9 +15,7 @@ export default function MiniProfile() {
           <p>Copyright &copy; {new Date().getFullYear()} Mardoqueu Sousa</p>
 
         </div>
-        <button onClick={signOut} className="font-semibold text-blue-400 text-sm">
-        Sign out
-      </button>
+        <button className="font-semibold text-blue-400 text-sm">Sign out</button>
       </div>
     );
   }
