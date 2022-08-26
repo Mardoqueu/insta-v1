@@ -14,7 +14,7 @@ export default function Feed() {
         <Posts/>
       </section>
 
-      <section className="hidden md:inline-grid md:col-span-1">
+      <section>
         {/* Mini profile */}
    
         {/* Suggestions */}
