@@ -12,7 +12,7 @@ export default function UploadModal() {
             isOpen={open}
             onRequestClose={()=>setOpen(false)}
             >
-                <div className='flex flex-col justify-center items-center h-[100%]'>
+                <div className='flex flex-col justify-center'>
                      <h1>Modal</h1>
                 </div>
                 
