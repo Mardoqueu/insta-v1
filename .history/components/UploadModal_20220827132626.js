@@ -63,8 +63,6 @@ export default function UploadModal() {
                 maxLength="150" 
                 placeholder="Enter your caption..." 
                 className="m-4 border-none text-center w-full focus:ring-0"></input>
-               
-                {/*The button at the bottom of the model part, which is now in disabled mode, but changes when it has the image in review  */}
                 <button
                 disabled
                 className="w-full bg-red-600 text-white p-2 shadow-md hover:brightness-125 disabled:bg-gray-200 disabled:cursor-not-allowed disabled:hover:brightness-100"
