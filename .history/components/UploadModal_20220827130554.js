@@ -25,12 +25,9 @@ export default function UploadModal() {
     <div>        
         {open && (
             <Modal
-            className="max-w-lg w-[90%] p-6 absolute top-56 left-[50%] translate-x-[-50%] bg-white border-2 rounded-md shadow-md"
-            isOpen={open}
-            onRequestClose={() => {
-              setOpen(false);
-              setSelectedFile(null);
-            }}
+            className="max-w-lg w-[90%] p-6 absolute top-56 left-[50%] translate-x-[-50%] bg-white border-2 rounded-md shadow-md"            isOpen={open}
+            
+            onRequestClose={()=>setOpen(false)}
             >
                 <div className='flex flex-col justify-center items-center h-[100%]'>     
                 {selectedFile ? (
