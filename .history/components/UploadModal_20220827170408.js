@@ -5,7 +5,6 @@ import Modal from "react-modal";
 {/*Import from hero icons */}
 import { CameraIcon } from "@heroicons/react/outline";
 import { useRef, useState } from "react";
-{/*Import built functions / utilities from firebase*/}
 import {
     addDoc,
     collection,
@@ -20,18 +19,14 @@ export default function UploadModal() {
     const [open, setOpen] = useRecoilState(modalState);  
     {/*Creation of a state to select the file to record the URL of the image to be upload   */}
     const [selectedFile, setSelectedFile] = useState(null);
-    {/*State called loading, it gets the information from the from session */}
+    {/*Comments  */}
     const [loading, setLoading] = useState(false);
     {/*This function is going to prevent the user to upload more than one post at the same time */}
-    const { data: session } = useSession();
     async function uploadPost() {
-        {/*function which return when the loading is true  */}
         if (loading) return;
-        
-        {/*if the loading is false, I set the loading to true */}
+    
         setLoading(true);
         {/*addDoc is a building function for Firebase  */}
-        {/*create the document with these informations and */}
         const docRef = await addDoc(collection(db, "posts"), {
           caption: captionRef.current.value,
           username: session.user.username,
@@ -39,19 +34,15 @@ export default function UploadModal() {
           timestamp: serverTimestamp(),
         });
     
-        {/*and then  it upload the image to this andress with this documentary  */}
         const imageRef = ref(storage, `posts/${docRef.id}/image`);
         await uploadString(imageRef, selectedFile, "data_url").then(
           async (snapshot) => {
-            {/*once uploaded it, we get te download the URL  and updated the document with the url donwload  */}
             const downloadURL = await getDownloadURL(imageRef);
             await updateDoc(doc(db, "posts", docRef.id), {
               image: downloadURL,
             });
           }
         );
-        {/*and finally, we set everything to false */}
-
         setOpen(false);
         setLoading(false);
         setSelectedFile(null);
