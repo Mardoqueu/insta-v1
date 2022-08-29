@@ -36,7 +36,7 @@ export default function Post({img, userImg, caption, username, id}) {
         <p className='p-5 truncate'><span className='font-bold mr-2'>{username}</span>{caption}</p>
       
        {/* Post input box */}    
-       //used this operator session to hidden the post input box
+       //used this operator session to hidden the  Post input box
        {session && (
               <form className='flex items-center p-4'>
               <EmojiHappyIcon className='h-7'/>  
