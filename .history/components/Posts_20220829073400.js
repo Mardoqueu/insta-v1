@@ -1,29 +1,27 @@
 import postcss from 'postcss'
 import { useEffect, useState } from "react";import Post from './Post'
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
-import { db } from "../firebase";
 
 export default function Posts() {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-      const unsubscribe = onSnapshot(
-        query(collection(db, "posts"), orderBy("timestamp", "desc")),
-        (snapshot) => {
-          setPosts(snapshot.docs);
-        }
-      );
-      return unsubscribe;
-    });
+        {/*snaptshot gives the information from database */}
+        const unsubscribe = onSnapshot(
+            query(collection(db, "posts"), orderBy("timestamp", "desc")),
+            (snapshot) => {setPosts(snapshot.docs);}
+        )
+    })
+
   return (
     <div>
         {posts.map(post => (
             <Post
                 key={post.id} 
                 id={post.id}
-                username={post.data().username}
-                userImg={post.data().profileImg}
-                img={post.data().image}
-                caption={post.data().caption}
+                username={post.username}
+                userImg={post.userImg}
+                img={post.img}
+                caption={post.caption}
             />
         ))}
     </div>

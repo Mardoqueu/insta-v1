@@ -6,14 +6,13 @@ import { db } from "../firebase";
 export default function Posts() {
     const [posts, setPosts] = useState([]);
     useEffect(() => {
-      const unsubscribe = onSnapshot(
-        query(collection(db, "posts"), orderBy("timestamp", "desc")),
-        (snapshot) => {
-          setPosts(snapshot.docs);
-        }
-      );
-      return unsubscribe;
-    });
+        {/*snaptshot gives the information from database */}
+        const unsubscribe = onSnapshot(
+            query(collection(db, "posts"), orderBy("timestamp", "desc")),
+            (snapshot) => {setPosts(snapshot.docs);}
+        )
+    })
+
   return (
     <div>
         {posts.map(post => (
@@ -22,7 +21,7 @@ export default function Posts() {
                 id={post.id}
                 username={post.data().username}
                 userImg={post.data().profileImg}
-                img={post.data().image}
+                img={post.data().img}
                 caption={post.data().caption}
             />
         ))}
