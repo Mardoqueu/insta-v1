@@ -74,8 +74,8 @@ export default function Post({img, userImg, caption, username, id}) {
               {comments.map(comment =>(
                   <div className="flex items-center space-x-2 mb-2">
                     <img className="h-7 rounded-full object-cover" src={comment.data().userImage} alt="user-image"></img>
-                    <p className="font-semibold">{comment.data().username}</p>
-                    <p className="flex-1 truncate">{comment.data().comment}</p>
+                    <p>{comment.data().username}</p>
+                    <p>{comment.data().comment}</p>
                     <Moment fromNow>{comment.data().timestamp?.toDate()}</Moment>                  </div>
               ))}
             </div>
