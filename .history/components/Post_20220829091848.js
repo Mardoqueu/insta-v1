@@ -13,12 +13,10 @@ export default function Post({img, userImg, caption, username, id}) {
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
   
-  {/*//asynchronous function to get the information from input, pass it to the collection with these formats  */}
   async function sendComment(event) {
     event.preventDefault();
     const commentToSend = comment;
     setComment("");
-    {/*await to get the information to the database */}
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
       username: session.user.username,

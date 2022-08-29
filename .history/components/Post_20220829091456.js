@@ -5,28 +5,10 @@ import React, { useState } from "react";import {
   BookmarkIcon,
   EmojiHappyIcon, } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase";
-
 export default function Post({img, userImg, caption, username, id}) {
-  {/*//useSession to get this session*/}
+//useSession to get this session
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
-  
-  {/*//asynchronous function to get the information from input, pass it to the collection with these formats  */}
-  async function sendComment(event) {
-    event.preventDefault();
-    const commentToSend = comment;
-    setComment("");
-    {/*await to get the information to the database */}
-    await addDoc(collection(db, "posts", id, "comments"), {
-      comment: commentToSend,
-      username: session.user.username,
-      userImage: session.user.image,
-      timestamp: serverTimestamp(),
-    });
-  }
-
   return (
     <div className='bg-white my-7 border rounded-t-md'>        
         {/* Post Header*/}
@@ -39,8 +21,7 @@ export default function Post({img, userImg, caption, username, id}) {
        <img className="object-cover w-full" src={img} alt=''/>
 
        {/* Post Buttons*/}
-       {/* used this operator session to hidden the posts buttons*/}
-    
+    //used this operator session to hidden the posts buttons
       {session && (
               <div className='flex justify-between px-4 pt-4'>
               <div className="flex space-x-4">

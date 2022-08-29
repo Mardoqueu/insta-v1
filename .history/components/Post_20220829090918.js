@@ -1,32 +1,15 @@
-import React, { useState } from "react";import {  
+import React from 'react'
+import {  
   DotsHorizontalIcon,
   HeartIcon,
   ChatIcon,
   BookmarkIcon,
   EmojiHappyIcon, } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db } from "../firebase";
-
 export default function Post({img, userImg, caption, username, id}) {
-  {/*//useSession to get this session*/}
+//useSession to get this session
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
-  
-  {/*//asynchronous function to get the information from input, pass it to the collection with these formats  */}
-  async function sendComment(event) {
-    event.preventDefault();
-    const commentToSend = comment;
-    setComment("");
-    {/*await to get the information to the database */}
-    await addDoc(collection(db, "posts", id, "comments"), {
-      comment: commentToSend,
-      username: session.user.username,
-      userImage: session.user.image,
-      timestamp: serverTimestamp(),
-    });
-  }
-
   return (
     <div className='bg-white my-7 border rounded-t-md'>        
         {/* Post Header*/}
@@ -39,8 +22,7 @@ export default function Post({img, userImg, caption, username, id}) {
        <img className="object-cover w-full" src={img} alt=''/>
 
        {/* Post Buttons*/}
-       {/* used this operator session to hidden the posts buttons*/}
-    
+    //used this operator session to hidden the posts buttons
       {session && (
               <div className='flex justify-between px-4 pt-4'>
               <div className="flex space-x-4">
@@ -55,23 +37,12 @@ export default function Post({img, userImg, caption, username, id}) {
         <p className='p-5 truncate'><span className='font-bold mr-2'>{username}</span>{caption}</p>
       
        {/* Post input box */}    
-       
-       {/* used this operator session to hidden the post input box */} 
+       //used this operator session to hidden the post input box
        {session && (
               <form className='flex items-center p-4'>
               <EmojiHappyIcon className='h-7'/>  
-              <input 
-              value={comment}
-              onChange={(event)=> setComment(event.target.value)}
-              className='border-none flex-1 focus:ring-0' 
-              type="text" 
-              placeholder="Enter your comment..."/>
-
-              <button 
-              type="submit" 
-              onClick={sendComment} 
-              disabled={!comment.trim()} 
-              className='text-blue-400 font-bold disabled:text-blue-200'>Post</button>              
+              <input className='border-none flex-1 focus:ring-0' type="text" placeholder="Enter your comment..."/>
+              <button disabled={} className='text-blue-400 font-bold'>Post</button>              
             </form>      
        )}
 

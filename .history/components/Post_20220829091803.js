@@ -9,16 +9,14 @@ import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "../firebase";
 
 export default function Post({img, userImg, caption, username, id}) {
-  {/*//useSession to get this session*/}
+//useSession to get this session
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
   
-  {/*//asynchronous function to get the information from input, pass it to the collection with these formats  */}
   async function sendComment(event) {
     event.preventDefault();
     const commentToSend = comment;
     setComment("");
-    {/*await to get the information to the database */}
     await addDoc(collection(db, "posts", id, "comments"), {
       comment: commentToSend,
       username: session.user.username,
