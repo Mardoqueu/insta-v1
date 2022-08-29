@@ -3,32 +3,17 @@ import React, { useEffect, useState } from "react";import {
   HeartIcon,
   ChatIcon,
   BookmarkIcon,
-  EmojiHappyIcon,   
-} from "@heroicons/react/outline";
+  EmojiHappyIcon, } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import Moment from 'react-moment';
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";import { db } from "../firebase";
-import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
-import { async } from "@firebase/util";
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp } from "firebase/firestore";
+import { db } from "../firebase";
 
 export default function Post({img, userImg, caption, username, id}) {
   {/*//useSession to get this session*/}
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  {/*state to set likes */}
-  const [likes, setLikes] = useState([]);
-  {/*state to has like */}
   const [hasLiked, setHasLiked] = useState(false);
   {/*//useEffect to fetch the data for comments*/}
   useEffect(() => {
@@ -38,35 +23,7 @@ export default function Post({img, userImg, caption, username, id}) {
     {/*//Finally, get the information using snapshot*/}
       
 
-  }, [db, id]);
-
-  {/* got the likes using snapshot and collection*/}
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "posts", id, "likes"),
-      (snapshot) => setLikes(snapshot.docs)
-    );
-  }, [db]);
-
-  {/*check if there's a like with the username I.D or not  */}
-  useEffect(() => {
-    setHasLiked(
-      likes.findIndex((like) => like.id === session?.user.uid) !== -1
-    );
-  }, [likes]);
-    
-  {/*state to set likepost */}
-  async function likePost() {
-    {/*If there is a like, it delete the like */}
-    if (hasLiked) {
-      await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
-    } else {
-      {/*If there is no like, it sets  the like with the user name*/}
-      await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
-        username: session.user.username,
-      });
-    }
-  }
+  }, [db])
 
 
   {/*//asynchronous function to get the information from input, pass it to the collection with these formats  */}
@@ -100,16 +57,8 @@ export default function Post({img, userImg, caption, username, id}) {
       {session && (
               <div className='flex justify-between px-4 pt-4'>
               <div className="flex space-x-4">
-              {/*If there is a like, it set a HeartIconFilled, otherwise it set the empty heart icon*/}
-              {hasLiked ? (
-              <HeartIconFilled
-                onClick={likePost}
-                className="text-red-400 btn"
-              />
-            ) : (
-              <HeartIcon onClick={likePost} className="btn" />
-            )}
-                  
+                  <HeartIconFilled className='tex-red-400 btn'/>
+                  <HeartIcon className='btn'/>
                   <ChatIcon className='btn'/>            
               </div>
                 <BookmarkIcon className='btn'/>          

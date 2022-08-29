@@ -7,17 +7,8 @@ import React, { useEffect, useState } from "react";import {
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
 import Moment from 'react-moment';
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  onSnapshot,
-  orderBy,
-  query,
-  serverTimestamp,
-  setDoc,
-} from "firebase/firestore";import { db } from "../firebase";
+import { addDoc, collection, onSnapshot, orderBy, query, serverTimestamp, setDoc } from "firebase/firestore";
+import { db } from "../firebase";
 import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
 import { async } from "@firebase/util";
 
@@ -26,9 +17,6 @@ export default function Post({img, userImg, caption, username, id}) {
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
   const [comments, setComments] = useState([]);
-  {/*state to set likes */}
-  const [likes, setLikes] = useState([]);
-  {/*state to has like */}
   const [hasLiked, setHasLiked] = useState(false);
   {/*//useEffect to fetch the data for comments*/}
   useEffect(() => {
@@ -40,28 +28,10 @@ export default function Post({img, userImg, caption, username, id}) {
 
   }, [db, id]);
 
-  {/* got the likes using snapshot and collection*/}
-  useEffect(() => {
-    const unsubscribe = onSnapshot(
-      collection(db, "posts", id, "likes"),
-      (snapshot) => setLikes(snapshot.docs)
-    );
-  }, [db]);
-
-  {/*check if there's a like with the username I.D or not  */}
-  useEffect(() => {
-    setHasLiked(
-      likes.findIndex((like) => like.id === session?.user.uid) !== -1
-    );
-  }, [likes]);
-    
-  {/*state to set likepost */}
   async function likePost() {
-    {/*If there is a like, it delete the like */}
     if (hasLiked) {
       await deleteDoc(doc(db, "posts", id, "likes", session.user.uid));
     } else {
-      {/*If there is no like, it sets  the like with the user name*/}
       await setDoc(doc(db, "posts", id, "likes", session.user.uid), {
         username: session.user.username,
       });
@@ -100,7 +70,6 @@ export default function Post({img, userImg, caption, username, id}) {
       {session && (
               <div className='flex justify-between px-4 pt-4'>
               <div className="flex space-x-4">
-              {/*If there is a like, it set a HeartIconFilled, otherwise it set the empty heart icon*/}
               {hasLiked ? (
               <HeartIconFilled
                 onClick={likePost}
