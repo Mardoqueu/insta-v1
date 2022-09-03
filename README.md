@@ -1,8 +1,14 @@
--use Firebase for database and storage
--style with Tailwind CSS
--authenticate using next-auth
--apply like and comment functionality
--add upload functionality and use Image tag of nextjs
+Clone do Instagram
+
+➣use Firebase for database and storage
+
+➣style with Tailwind CSS
+
+➣authenticate using next-auth
+
+➣apply like and comment functionality
+
+➣add upload functionality and use Image tag of nextjs
 
 
 ![Screenshot_7](https://user-images.githubusercontent.com/11077068/187270911-fa02053c-3cef-43bf-a844-715ab3257ceb.png)
