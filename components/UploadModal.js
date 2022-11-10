@@ -33,6 +33,7 @@ export default function UploadModal() {
         {/*addDoc is a building function for Firebase  */}
         {/*create the document with these informations and */}
         const docRef = await addDoc(collection(db, "posts"), {
+          id: session.user.uid,
           caption: captionRef.current.value,
           username: session.user.username,
           profileImg: session.user.image,

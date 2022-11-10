@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";import {
   DotsHorizontalIcon,
   HeartIcon,
   ChatIcon,
-  BookmarkIcon,
+  TrashIcon,
   EmojiHappyIcon,   
 } from "@heroicons/react/outline";
 import { useSession } from "next-auth/react";
@@ -17,11 +17,15 @@ import {
   query,
   serverTimestamp,
   setDoc,
-} from "firebase/firestore";import { db } from "../firebase";
+} from "firebase/firestore";
+import { db, storage  } from "../firebase";
 import {HeartIcon as HeartIconFilled} from "@heroicons/react/solid";
 import { async } from "@firebase/util";
+import { deleteObject, ref } from "firebase/storage";
+import { useRouter } from "next/router";
 
-export default function Post({img, userImg, caption, username, id}) {
+
+export default function Post({img, userImg, caption, username, post, id}) {
   {/*//useSession to get this session*/}
   const {data: session}  = useSession();
   const [comment, setComment] = useState("");
@@ -31,6 +35,8 @@ export default function Post({img, userImg, caption, username, id}) {
   {/*state to has like */}
   const [hasLiked, setHasLiked] = useState(false);
   {/*//useEffect to fetch the data for comments*/}
+  const router = useRouter();
+
   useEffect(() => {
     const unsubscribe = onSnapshot(
       query(collection(db, "posts", id, "comments"), orderBy("timestamp", "desc")), (snapshot) => {setComments(snapshot.docs)}
@@ -68,7 +74,16 @@ export default function Post({img, userImg, caption, username, id}) {
     }
   }
 
+  async function deletePost() {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      deleteDoc(doc(db, "posts", id));      
+      if(post.data().image){
+        deleteObject(ref(storage, `posts/${id}/image`));
+      }
 
+      router.push("/");
+    }
+  }
   {/*//asynchronous function to get the information from input, pass it to the collection with these formats  */}
   async function sendComment(event) {
     event.preventDefault();
@@ -95,8 +110,7 @@ export default function Post({img, userImg, caption, username, id}) {
        <img className="object-cover w-full" src={img} alt=''/>
 
        {/* Post Buttons*/}
-       {/* used this operator session to hidden the posts buttons*/}
-    
+       {/* used this operator session to hidden the posts buttons*/}    
       {session && (
               <div className='flex justify-between px-4 pt-4'>
               <div className="flex space-x-4">
@@ -110,10 +124,18 @@ export default function Post({img, userImg, caption, username, id}) {
               <HeartIcon onClick={likePost} className="btn" />
             )}
                   
-                  <ChatIcon className='btn'/>            
+            <ChatIcon className='btn'/>            
               </div>
-                <BookmarkIcon className='btn'/>          
-            </div>
+
+            {session?.user.username === post?.data()?.username && (
+            <TrashIcon
+              onClick={deletePost}
+              className="btn"
+            />
+          )}
+
+
+          </div>
       )}
 
        {/* Post Comments*/}  
